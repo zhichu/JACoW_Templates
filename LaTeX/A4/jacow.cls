@@ -1,4 +1,4 @@
-%% v2.98j
+%% v2.98p
 %% This file has been developed as a common template for papers
 %% destined for electronic production for Accelerator Conferences
 %%
@@ -18,7 +18,7 @@
 %%
 %% This work has the LPPL maintenance status "maintained".
 %%
-%% This Current Maintainer of this work is Volker RW Schaa.
+%% This Current Maintainers of this work is Volker RW Schaa and Zdichu Cheng.
 %%
 %% This work consists of the following files
 %%    jacow.cls               this class file
@@ -256,10 +256,40 @@
 % - field formatting unified/redefined for "article, periodical, inproceedings" (volume, 
 %		issue, number, journaltitle, shortjournal, maintitle, booktitle)
 %                                       Zhichu Chen, Volker RW Schaa,  20 Aug 2024
-
-\def\fileversion{2.98j}
-\def\filedate{2024/08/20}
-\def\docdate {2024/08/20}
+%
+%% v2.98k
+% - fix introduced to remove period after URL which showed up with v2.98f
+%                                                         Zhichu Chen, 07 Sep 2024
+%
+%% v2.98l
+% - code stolen from cite.sty, to mimic the behaviour of cite package in respect of
+%		spacing between numbers:  [1,␣3,␣7]  (␣: \multicitedelim)
+%                                                         Zhichu Chen, 08 Sep 2024
+%
+%% v2.98m
+% - change of sequence of graphics extension to be embedded for XeTeX (EPS came to early)
+%		this code part was removed from the template
+% - modification of \textfloatsep/\intextsep back to a bigger minus value
+%                                                     Volker RW Schaa, 11 Sep 2024
+%
+%% v2.98n
+% - [utf8]inputenc moved from template to class so that it appears for pdfLaTeX before
+%		biblatex is loaded
+%                                                     Volker RW Schaa, 18 Sep 2024
+% 
+%% v2.98o
+% - "ieeetran" style file has been changed in version "1.4c 2025-01-15" to typeset
+%	"et al." in an upright font. jacow.cls stays with the old definition
+%                                                     Volker RW Schaa, 16 Jan 2025
+%
+%% v2.98p
+% - the "et al." string in "ieeetran" version "1.4e 2025-03-15" shows up
+%	as "\textit{etal.}", this version corrects it to  "\textit{et al.}"
+%                                                     Volker RW Schaa, 26 May 2025
+%
+\def\fileversion{2.98p}
+\def\filedate{2025/05/26}
+\def\docdate {2025/05/26}
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{jacow}[\filedate\space v\fileversion]
@@ -418,6 +448,7 @@
 \ifboolexpr{bool{xetex} or bool{luatex}}
  {}
  { \catcode`\^^^=9
+	\RequirePackage[utf8]{inputenc}
  }
 
 \ifboolexpr{bool{xetex} or bool{luatex}}
@@ -528,9 +559,11 @@
 %  Default sizes
 %  \textfloatsep: 1.7\baselineskip plus 0.2\baselineskip minus 0.5\baselineskip
 %  \intextsep: \baselineskip plus 0.2\baselineskip minus 0.2\baselineskip
-\setlength{\textfloatsep}{12pt plus 2.4pt minus 2.4pt}
-\setlength{\intextsep}{12pt plus 2.4pt minus 2.4pt}
-
+%\setlength{\textfloatsep}{12pt plus 2.4pt minus 2.4pt}
+%\setlength{\intextsep}{12pt plus 2.4pt minus 2.4pt}
+\setlength{\textfloatsep}{1.5\baselineskip plus 0.2\baselineskip minus 0.8\baselineskip}
+\setlength{\intextsep}{1.5\baselineskip plus 0.2\baselineskip minus 0.8\baselineskip}
+%
 % This definition of \maketitle taken from article.sty, and has been
 % somewhat modified.
 
@@ -635,6 +668,23 @@
 %2.1 {\RequirePackage[style=ieee,sorting=none,giveninits=true,maxnames=6,minnames=1]{biblatex}
 %2.2
   {\RequirePackage[bibstyle=ieee,citestyle=numeric-comp,dashed=false,sorting=none,giveninits=true,maxnames=6,minnames=1]{biblatex}
+	%% stolen from cite.sty, to mimic the behaviour of cite package
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\mathchardef\citeprepenalty=\@highpenalty
+	\mathchardef\citepunctpenalty=\@m
+	\edef\@zero@skip{\the\z@skip}
+	\def\cite@adjust{\begingroup%
+		\@tempskipa\lastskip \edef\@tempa{\the\@tempskipa}\unskip
+		\ifnum\lastpenalty=\z@ \penalty\citeprepenalty \fi
+		\ifx\@tempa\@zero@skip
+		\space 
+		\else
+		\hskip\@tempskipa
+		\fi
+		\endgroup}
+	\AddToHook{cmd/cite/before}{\leavevmode \cite@adjust}
+	\renewcommand*{\multicitedelim}{,\penalty\citepunctpenalty\hskip.13emplus.1emminus.1em\relax}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % enforce csquotes to use american style, even if british is set
   \AtBeginBibliography{\ifundef{\setquotestyle}{}{\setquotestyle{american}}}
   % copy content of issue to number if number is not set
@@ -837,7 +887,9 @@
     } %»
 
 
-
+\DefineBibliographyStrings{english}{
+  andothers   = \mkbibemph{et{\addspace}al\adddot},
+}
 \DeclareFieldFormat[inproceedings]{maintitle}{\bibstring{in}\addspace\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{booktitle}{\bibstring{in}\addspace\mkbibemph{#1}}
   \DeclareBibliographyDriver{inproceedings} %«
@@ -876,7 +928,7 @@
      {}
      {\printfield{url}%
       \nopunct}}%
-  \DeclareFieldFormat{url}{\url{#1}}
+  \DeclareFieldFormat{url}{\url{#1}\nopunct}
   \DeclareFieldFormat{eprint}{#1}
 %% when to activate this? Paper format acus/letter
 \DefineBibliographyExtras{english}{\stdpunctuation}
@@ -1033,7 +1085,15 @@
 
 
 \ExplSyntaxOff
-
+%
+% CHANGE SEQUENCE OF GRAPHICS EXTENSION TO BE EMBEDDED
+% ----------------------------------------------------
+% test for XeTeX where the sequence is by default eps-> pdf, jpg, png, pdf, ...
+%    and the JACoW template provides JACpic2v3.eps and JACpic2v3.jpg which
+%    might generates errors, therefore PNG and JPG first
+%
+\ifboolexpr{bool{xetex}}{\renewcommand{\Gin@extensions}%
+	{.pdf, .png,.jpg,.bmp,.pict,.tif,.psd,.mac,.sga,.tga,.gif,.eps,.ps,}}{}
 
 %\sloppy
 \clubpenalty10000\widowpenalty10000
