@@ -1,0 +1,346 @@
+%
+% !BIB TS-program = biber
+% !BIB program = biber
+% !TeX spellcheck = en_US
+% !TeX program = lualatex
+%
+% v 3.00 Feb 2026   Volker RW Schaa
+%   
+\documentclass[%
+			   %boxit,         % check whether paper is inside correct margins
+               %titlepage,    % separate title page
+               %refpage       % separate references
+               %biblatex,     % biblatex is used
+               %nospread,     % flushend option: do not fill with whitespace to balance columns
+               hyphens,       % allow \url to hyphenate at "-" (hyphens)
+               %xetex,        % use XeLaTeX to process the file
+               %luatex,       % use LuaLaTeX to process the file
+               ]{jacow}
+%
+\usepackage[english]{babel}
+\usepackage{fancyvrb}
+\DefineShortVerb{\★}
+\usepackage{stfloats}
+\usepackage[most]{tcolorbox}
+\lstdefinelanguage{none}{}
+
+\newtcblisting{Tverb}{
+				boxrule=.3pt,
+				colback=blue!5!white,%
+				colframe=blue!75!black, %
+				left=1mm,top=1mm, bottom=1mm, right=1mm,
+				boxsep=0mm, 
+				before skip balanced=0pt, 
+				after skip balanced=6pt,
+			    listing only,
+			    listing options={
+			    	language=none,
+			    	style=tcblatex,
+			    	basicstyle=\ttfamily,
+			    	columns=flexible,
+			    },
+			    every listing line={\small\ttfamily},
+			  }
+%
+% when BibLaTeX is used:
+%      Bib file in JACoW must be named like the main file + .bib
+%      the file type (.bib) is mandatory
+%
+\ifboolexpr{bool{jacowbiblatex}}%
+ {%
+  \addbibresource{\jobname.bib}
+  \addbibresource{more-biblatex-bib-files.bib}	% more Bib files may be loaded 
+ }{}
+%
+\listfiles
+%
+% the following macro is used to switch between UK and US english 
+%
+\newif\ifjacowLangGB
+\jacowLangGBfalse
+\newcommand{\Lang}[2]{\ifboolexpr{bool{jacowLangGB}}{#1}{#2}}
+
+%%
+%%   Lengths for the spaces in the title
+%%   \setlength\titleblockstartskip{..}  %before title, default 3pt
+%%   \setlength\titleblockmiddleskip{..} %between title + author, default 1em
+%%   \setlength\titleblockendskip{..}    %afterauthor, default 1em
+
+
+\begin{document}
+
+
+
+\title{ANNEX B: \\
+		REFERENCE STYLE GUIDE AS APPLIED TO \NoCaseChange{JACoW} PAPERS, \\
+		PERIODICALS AND OTHER WORKS\\[-\baselineskip]}
+\author{}
+\maketitle
+
+
+\subsection{Formatting of Authors and Paper Titles}
+
+The formatting of authors and paper titles is common to both proceedings’ volumes and journals and are outlined in the following.
+
+\subsubsection{Author Listing}
+
+Careful attention should be given to the placing of commas and the use of ‘and’ in the author list. For the case of three or more authors (as in Ref. [3]), a comma also follows the penultimate author. The preference for \textit{et al.} takes precedence when the number of authors is greater than six. See Table~\ref{tab:author-formatting} for a synopsis.
+\begin{table}[!hbt]
+   \centering
+   \caption{Formatting Authors}
+   \setlength\tabcolsep{2.5pt}
+   \begin{tabular}{p{25mm}l}
+       \toprule
+       \textbf{No. of Authors} & \textbf{Format} \\ 
+       \midrule
+           1		& A.\,T.\,Alpha,                  			\\
+           2		& A.\,T.\,Alpha and B.\,Beta,					\\
+           3 to 6	& A.\,T.\,Alpha, B.\,Beta, and J.-P.\,Gamma,	\\ 
+           >6		& A.\,T.\,Alpha\textit{et al.},				\\ 
+           >6\,\,but\,\,with\,\,two \hphantom{>6 }\mbox{primary authors} 
+           			& A.\,T.\,Alpha, B.\,Beta, \textit{et al.}, 	\\
+       \bottomrule
+   \end{tabular}
+   \label{tab:author-formatting}
+\end{table}
+
+\subsubsection{Paper Title}
+
+As is modern practice in references, the title of the paper is written in sentence case, i.e., only the initial letter of the first word in the title is capitalized. Proper nouns, however, also have a capital. Capital letters appearing in acronyms likewise remain unaltered.
+
+\subsection{Conference Proceedings}
+
+The format for published JACoW proceedings papers is detailed in the following and can also be readily deduced from Refs. [1-5]. Use of the said style for references ensures a proper import into digital libraries and information sources such as INSPIRE, Scopus, and Google Scholar. Authors are also reminded to make a distinction between papers published in JACoW proceedings, which have page numbers and, in the case of recent publications, digital object identifiers (DOIs), and those papers that may have been presented at past JACoW conferences but were not published [6]. References to contributions presented at the same conference should be written as shown in Ref. [7].
+
+\subsubsection{Conference Title}
+
+The title of the proceedings is written in title case in italics using standard abbreviations, 
+such as \textit{Int.} and \textit{Conf}. The preposition, “in”, in normal font, precedes the proceedings title. The abbreviated form of the conference is sufficient, e.g., in \textit{Proc. IPAC’24}. If the complete name of the conference is preferred to avoid possible ambiguities, then ISO~4 abbreviations may be applied, e.g., in \textit{Proc.13th Int. Comput. Accel. Phys. Conf. (ICAP’18)}.
+
+\subsubsection{Conference Location and Month, Year}
+
+The location, i.e., city, state (if applicable), and country of the conference venue, the month (three-letter abbreviation) and the year the conference took place, is then listed.
+
+\subsubsection{Page Numbers and DOI}
+
+Finally, details pertaining to the paper itself, such as mandatory page numbers, and the DOI, if existing, are listed in the given order. A mono-spaced font for the DOI is used to help distinguish it from normal text. The font for typesetting links in \LaTeX{} using the ‘\texttt{url}’ package 
+is a monospaced (typewriter) font. To get a better distinction between »\texttt{O}« and~»\url{0}« the default font has been switched to »\texttt{newtxtt}«. The conference paper ID may be included in the absence of a DOI to facilitate a search through internet search engines. DOIs have been assigned to all JACoW publications since 2015, and IPAC2014. This list will be updated when older conferences are reprocessed with registered DOIs. The use of DOIs is strongly mandated, and an active hyperlink in the final PDF because in contrast to the standard »★https://★« links which might obsolete anytime, DOIs are designed to be permanent, they are a type of persistent identifier.
+
+Use of the said style for references ensures a proper import into digital libraries and information sources such as INSPIRE, Scopus, and Google Scholar. Authors are also reminded to make a distinction between papers published in JACoW proceedings (which have page numbers and, in recent publications, DOIs) and those papers that may have been presented at past JACoW conferences but were not published [6]. References to contributions presented at the same conference should be written as shown in Ref. [7]; the wording “this conference” may be appended.
+
+\subsection{Referencing Periodicals}
+
+When referencing periodicals, special attention should be given to including all the necessary details: author names, paper title, journal, volume, page/article number, and year. The DOI should be included if available. These details should be formatted according to the style shown in Refs. [8-12]. Journal abbreviations follow the ISO\,4 standard. References [13, 14] are good sources for journal abbreviations. A set of selected journal abbreviations is listed in \textbf{ANNEX~C}.
+
+\subsection{Referencing Other Sources}
+
+The IEEE style is also shown for papers that have been accepted or submitted for publication in periodicals [15, 16], arXiv preprints [17], online sources [18-20], books [21, 22], internal and technical reports [23-27], theses [28], handbooks and (reference) manuals [29-31], patents [32] and unpublished material [33, 34].
+
+\subsection{Alignment of References}
+
+Entries to the \textbf{REFERENCES} section follow a hanging indent structure. In case of manual formatting of references, the value of `\texttt{x}' in the corresponding ★thebibliography★ command must be large enough to reserve sufficient space for the digits.
+\begin{Tverb}
+% Use for 10-99 references
+   \begin{thebibliography}{99} 
+% Use for  1-9 references
+   \begin{thebibliography}{9}  
+\end{Tverb}
+
+\noindent%
+This is automatically taken care of when using {Bib\LaTeX}.
+
+\subsection{Paper Published in a Conference Proceedings}
+
+The title of the paper is written in sentence case. References are typeset in \qty{9}{pt} size. The font for typesetting links in \LaTeX{} using the ‘\texttt{url}’ package is a mono-spaced (typewriter) font for DOIs (★\doi{}★) and URLs (★\url{}★). 
+To get a better distinction between »\texttt{O}« and~»\url{0}« the default font has been switched to »\texttt{newtxtt}«. 
+
+The DOI should be confined to within a single line rather than being split in arbitrary positions across multiple lines. This is achieved using the command ★\doi{}★, which measures the remaining space on the current line and inserts a line break if the DOI does not fit. In contrast to the functionality of the »★\url★« command, the »★\doi{10.xxx/yyyy}★« command places an active link to »★https://doi.org/10.xxx/yyyy★« in the PDF. This link redirects to the landing page of the publisher.
+
+\setenumerate[1]{label=[\arabic*], topsep=0pt, leftmargin=16pt, itemsep=-1pt}
+\begin{enumerate}\small
+	\item A. Alpha, “Novel techniques for a future TeV electron accelerator”, 
+		in \textit{Proc. IPAC’23}, Venice, Italy, May 2023, pp. 57-59. \\ \href{https//doi.org/10.18429/JACoW-IPAC2023}{\texttt{{doi:10.18429/JACoW-IPAC2023-PAPERID}}}
+
+	\item A. Alpha and B. T. Beta, “An overview of modern control systems”, 
+		in \textit{Proc. ICALEPCS’23}, Cape Town, South Africa, Oct. 2023, pp. 57-59. \\ \href{https//doi.org/10.18429/JACoW.ICALEPCS2023}{\texttt{doi:10.18429/JACoW-ICALEPCS2023-PAPERID}}
+
+	\item A. Alpha, B. T. Beta, and J.-P. Gamma, “Compact light sources”, 
+		in \textit{ Proc. FLS’23}, Lucerne, Switzerland, Aug.-Sep 2023, pp. 57-59. \\ \href{https//doi.org/10.18429/JACoW-FLS2023}{\texttt{doi:10.18429/JACoW-FLS2023-PAPERID}}
+
+	\item A. Alpha \textit{et al.}, “Novel techniques for future TeV electron accelerators”, 
+		in \textit{Proc. LINAC’24}, Chicago, IL, USA, Aug 2024, pp. 57-59. \\
+		\href{https//doi.org/10.18429/JACoW-LINAC2024}{\texttt{doi:10.18429/JACoW-LINAC2024-PAPERID}}
+
+	\item A. Alpha, B. T. Beta, \textit{et al.}, “Status of Cyclotrons around the world”, 
+		in \textit{Proc. Cyclotrons’22}, Beijing, China Dec. 2022, pp. 57-59. \\
+		\href{https//doi.org/10.18429/JACoW-CYCLOTRONS2022}{\texttt{doi:10.18429/JACoW-CYCLOTRONS2022-PAPERID}}
+\end{enumerate}
+
+\subsection{Unpublished Paper from a Previous Conference}
+
+The conference name is given in normal font. The paper ID may be given if material supplementing the proceedings exists on the JACoW website, e.g., PDF of talk.
+\begin{enumerate}[resume*]\small
+	\item A. Alpha, “An interesting talk but paper not submitted”, presented at IPAC’14, Dresden, Germany, Jun. 2014, paper MOP057, unpublished. 
+\end{enumerate}
+
+\subsection{Paper Presented at the Current Conference}
+
+For papers at the current conference the conference name is given in normal upright font preceded by ‘presented at’:
+\begin{enumerate}[resume*]\small
+	\item  A. Alpha and B. T. Beta, “Title of talk or poster presented at this conference”, 
+		presented at IPAC’25, Taipei, Taiwan, Jun. 2025, paper MOAB01, this conference.
+\end{enumerate}
+
+\subsection{Published in a Periodical}
+
+If journals are paginated by volume, the issue number is optional. 
+The month of publication is optional.
+
+\begin{enumerate}[leftmargin=22pt, resume*]\small
+	\item A. Alpha \textit{et al.}, “Title of paper published in journal”, 
+		\textit{Phys. Rev. Lett.}, vol. 114, no. 5, p. 050511, Feb. 2014. 
+		\href{https//doi.org/10.1103/PhysRevLett.114.050511}{\texttt{doi:10.1103/PhysRevLett.114.050511}}
+
+	\item A. Alpha, “New techniques in laser wakefield accelerators”, 
+		\textit{Phys. Rev. Accel. Beams}, vol. 22, p. 014601, Jan. 2019. \\ \href{https//doi.org/10.1103/PhysRevAccelBeams.22.014601}{\texttt{doi:10.1103/PhysRevAccelBeams.22.014601}}
+
+	\item A. Alpha, B. Beta, C. Gamma, D. Delta, E. Epsilon, and Z. Zeta, 
+		“Exotic beams”, \textit{Phys. Rev. Spec. Top. Accel. Beams}, vol. 1, p. 013501, May. 1998.	\\ \href{https//doi.org/10.1103/PhysRevSTAB.1.013501}{\texttt{doi:10.1103/PhysRevSTAB.1.013501}}
+
+	\item A. Alpha \textit{et al.}, 
+		“Low dose irradiation impact on modern silicon detectors”, 
+		\textit{Nucl. Instrum. Methods Phys. Res. A}, vol. 773, pp. 1-7, 2015. \\ \href{https//doi.org/10.1016/j.nima.2014.11.022}{\texttt{doi:10.1016/j.nima.2014.11.022}}
+
+	\item A. Alpha, B. Beta, and C. Gamma, 
+		“Temporal correlations of x-ray free electron lasers”, 
+		\textit{Optics Express}, vol. 33, no. 8, pp. 17884-17885, 2012. \\
+		\href{https//doi.org/10.1364/OE.564805}{\texttt{doi:10.1364/OE.564805}}
+\end{enumerate}
+
+\subsection{Journal Abbreviations}
+
+The following are good sources of journal abbreviations:
+\begin{enumerate}[leftmargin=22pt, resume*]\small
+	\item M. Wrochna, “List of Title Word Abbreviations”,
+		\nolinkurl{https://marcinwrochna.github.io/abbrevIso/}
+
+	\item  Kevin Lindstrom, Science and Engineering Journal Abbreviations, Woodward Library, 
+		The University of British Columbia, BC, Canada, 
+		\nolinkurl{https://woodward.library.ubc.ca/research-help/journal-abbreviations/}
+\end{enumerate}
+
+\subsection{Accepted for Publication}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item J. B. Good, “Title of paper accepted for publication”, 
+		\textit{Phys. Rev. Lett.}, to be published.
+\end{enumerate}
+
+\subsection{Submitted for Publication}
+
+The name of the periodical is not listed.
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item G. D. Read, “Title of paper”, submitted for publication.
+		arXiv Preprint
+
+	\item  A. Alpha, “Title of arXiv preprint”, Jan. 2025. 
+		\href{https://doi.org/10.48550/arXiv.2501.10602}{\texttt{doi:10.48550/arXiv.2501.10602}}
+\end{enumerate}
+
+\subsection{Online Source}
+
+Note that hyperlinks to non-DOI URLs are prohibited.
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item JACoW, \url{https://www.jacow.org}
+
+	\item EPICS, \url{https://www.epics-controls.org}
+
+	\item Principal Component Analysis, \\ 
+		\url{https://en.wikipedia.org/wiki/Principal_component_analysis}
+\end{enumerate}
+
+\subsection{Citations to Books}
+A reference to a chapter in a book:
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item A. Alpha and B. Beta, 
+		“Title of chapter in the book”, in Title of Book, 
+		R Mars, Ed. New York, NY, USA: Wiley, 1994, pp. 42-48.
+\end{enumerate}
+
+A reference to a book:
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item A. Alpha, \textit{Title of Book}. 
+		Cambridge, MA, USA: MIT Press, 1986.
+\end{enumerate}
+
+\subsection{Internal Report}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item A. Alpha \textit{et al.}, “Title of report”, CERN, Geneva, Switzerland, 
+		Rep. CERN-2012-333, Oct. 2012.
+
+	\item A. Alpha, B. Beta, C. Gamma, D. Delta, E. Epsilon, and Z.~Zeta, 
+		“Title of report”, SLAC National Accelerator Laboratory, Menlo Park, CA, USA, Rep. SLAC-REP-474, May 1996.
+\end{enumerate}
+
+\flushcolsend
+\subsection{Technical Report}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item M. Aiba \textit{et al.}, \textit{SLS-2 Conceptional Design Report}, 
+		A. Streun, Ed., Paul Scherrer Institute, Villigen, Switzerland, Rep. 17-03, Dec.~2017. \url{https://www.dora.lib4ri.ch/psi/islandora/oject/psi:34977}
+
+	\item \textit{Advanced Photon Source Upgrade Project Final Design Report}, 
+		Argonne National Laboratory, Lemont, IL, USA, Rep. APSU-2.01-RPT-003, May 2019. \url{https://publications.anl.gov/anlpubs/2019/07/153666.pdf} 
+
+	\item SwissFEL Conceptual Design Report, 2nd ed., 
+		R. Ganter, Ed., Paul Scherrer Institute, Villigen, Switzerland, Rep. 10-04, Apr. 2012. \url{https://www.dora.lib4ri.ch/psi/ islandora/object/psi:41664} 
+\end{enumerate}
+
+\subsection{Thesis}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item A. Student, “Title of thesis”, Ph.D. thesis, Phys. Dept., 
+		Karlsruher Institut für Technologie, Karlsruhe, Germany, 2014.
+\end{enumerate}
+
+\subsection{Handbook}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item Name of Handbook, 2nd ed., Name of Company, Country, 
+		Apr. 2024, pp. 34-52, \url{http://www.xyz.com/etc}
+
+	\item Motorola Semiconductor Handbook, Motorola Semiconductor Products Inc., 
+		Phoenix, AZ, USA, Nov. 2021, \url{https://www.motorola.com/etc}
+\end{enumerate}
+
+\subsection{Reference, Manual}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item \textit{IEEE Editorial Style Manual for Authors},
+		IEEE Periodicals, Piscataway,
+		NJ, USA, Mar. 2025. \\
+		\url{https://docs.google.com/document/d/1OalFYqVfxKKMelF79U3B93SjmIEiTnJC12wPJrKeSDM/}
+\end{enumerate}
+
+\subsection{Patents}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item  A. N. Inventor, “Title of patent”, 
+		<Patent Authority and No.>, Jan. 20, 2016. \\[3pt]
+		A. N. Inventor, “Title of patent”, 
+		<Patent Authority>, patent pending.
+
+\end{enumerate}
+
+\subsection{Unpublished Work and Private Communication}
+
+\begin{enumerate}[leftmargin=22pt, resume*]
+	\item P. Neptune, “Title of paper”, unpublished.
+	
+	\item P. Uranus, private communication, Jun. 2015.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,111 @@
+%
+%%% !BIB TS-program = bibtex
+%%% !BIB program = bibtex
+% !BIB TS-program = biber
+% !BIB program = biber
+% !TeX spellcheck = en_US
+% !TeX program = lualatex
+%
+% v 3.00 Feb 2026   Volker RW Schaa
+%   
+%
+\documentclass[a4paper,
+               %boxit,        % check whether paper is inside correct margins
+               %refpage       % separate references
+               %biblatex,     % biblatex is used
+               %nospread,     % flushend option: do not fill with whitespace to balance columns
+               %hyphens,      % allow \url to hyphenate at "-" (hyphens)
+               %xetex,        % use XeLaTeX to process the file
+               %luatex,       % use LuaLaTeX to process the file
+               ]{jacow}
+%
+\usepackage[english]{babel}
+\usepackage{cuted}
+
+\listfiles
+
+% abbreviation for \textsuperscript (TSP) 
+%              and \textsubscript (TSB)
+\newcommand{\TSP}[1]{\textsuperscript{#1}}
+\setlength\titleblockendskip{-\baselineskip}    %afterauthor, default 1em
+
+%
+% the following macro is used to switch between UK and US english 
+%
+\newif\ifjacowLangGB
+\jacowLangGBfalse
+\newcommand{\Lang}[2]{\ifboolexpr{bool{jacowLangGB}}{#1}{#2}}
+
+\begin{document}
+
+\title{\large APPENDIX A:\\[-4pt] FORMATTING OF AUTHORS AND AFFILIATIONS}
+\author{}
+
+\maketitle
+
+The names of authors, their organizations or affiliations may be grouped by author or
+by affiliation. The name of the submitting or primary author should be first, 
+followed by the coauthors, alphabetically. 
+If the author list spans multiple lines, please be sure to break the line in a manner 
+that does not split the author’s initials from the author’s last name. 
+This is easily done by placing unbreakable spaces between the initial(s) and last name.
+It has been established that there is no comma after the name of the author 
+when the following line contains the affiliation.
+
+In cases where authors have multiple affiliations, the secondary affiliation is inserted 
+below the author/primary affiliation listing, and indicated by a superscript number, 
+as shown in the following. 
+Only the minimal form of the institute name and location (city, country) is required.
+Post or ZIP codes should be omitted.
+
+Footnotes on the title and author lines may be used for \Lang{Acknowledgments}{Acknowledgements}
+and \Lang{e-mail}{email} addresses. 
+For manuscripts submitted by large collaborations with potentially many tens of authors and where, 
+additionally, there may be page number limitations, a format consisting of the principal author’s name and institute, 
+followed by “on behalf of the … collaboration”, is preferred.
+
+\begin{strip}
+\vspace*{-\baselineskip}
+\setlength\parindent{10pt}
+
+\subsection{Grouped by Author}
+
+The author/affiliation listing is formatted in the following way:
+\begin{center}
+	A. Alpha, CERN, Geneva, Switzerland\\
+\end{center}
+
+If there are multiple affiliations, the affiliation is indicated with a superscript as follows:
+\begin{center}
+	A. Alpha\TSP{1,2}, B. Beta\TSP{3}, C. Gamma\TSP{4}, D. Delta\TSP{5} \\
+	\TSP{1} CERN, Geneva, Switzerland \\
+	\TSP{2} Cambridge University, Cambridge, UK \\
+	\TSP{3} Deutsches Elektronen-Synchrotron DESY, Zeuthen, Germany \\
+	\TSP{4} SLAC National Accelerator Laboratory, Menlo Park, CA, USA \\
+	\TSP{5} RIKEN Nishina Center, Wako, Saitama, Japan \\
+\end{center}
+
+
+\subsection{Grouped by Affiliation}
+
+Collaborations with many affiliations may have a preference to list the authors by affiliation. 
+Here, the author and affiliation listing should be centered. 
+In cases where authors have multiple affiliations, the secondary affiliation is inserted 
+below the author/affiliation listing and is indicated with a superscript.
+\begin{center}
+	A. Alpha\TSP{1}, CERN, Geneva, Switzerland \\
+	B. Beta, Deutsches Elektronen-Synchrotron DESY, Zeuthen, Germany \\
+	C. Gamma, SLAC National Accelerator Laboratory, Menlo Park, CA, USA \\
+	D. Delta, RIKEN Nishina Center, Wako, Saitama, Japan \\
+	\TSP{1} also at Cambridge University, Cambridge, UK \\
+\end{center}
+
+For manuscripts submitted by large collaborations with many tens of authors, a format consisting of the principal author’s name and institute, followed by “on behalf of the … collaboration”, is preferred. If, on the other hand, all author names are to be explicitly included, the author is reminded that each of these must be entered into Indico through the web portal to ensure the cross-referencing of authors to papers in the final proceedings.
+\begin{center}
+A. Alpha, CERN, Geneva, Switzerland \\
+on behalf of the MICE collaboration
+\end{center}
+
+\end{strip}
+
+\end{document}
