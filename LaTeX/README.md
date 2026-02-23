@@ -26,7 +26,7 @@ This package has been developed as a common »template« for papers destined for
   - 3.00 (maintenance release)
   
 * Date:       
-  - 19 Februar 2026
+  - 19 February 2026
   
 * Copyright:  
   - 1996-2026 by JACoW, Geneva, Switzerland
