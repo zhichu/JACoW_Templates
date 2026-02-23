@@ -25,6 +25,7 @@
 \usepackage{stfloats}
 \usepackage[most]{tcolorbox}
 \lstdefinelanguage{none}{}
+%\usepackage[UTF8]{ctex}
 
 \newtcblisting{TCbox}{%
 				boxrule=.3pt,
@@ -96,7 +97,7 @@
 
 
 
-\title{\NoCaseChange{JACoW} {\LaTeX} Style Guide (\NoCaseChange{v}.2026-02-19)%
+\title{\NoCaseChange{JACoW} {\LaTeX} Style Guide (\NoCaseChange{v}.2026-02-23)%
 		\thanks{Work supported by <funding note>}
 		}
 
@@ -178,7 +179,7 @@ It gives the page width and height in points, millimeter, and inch.
 \end{table}
 \begin{figure*}[!ht]
     \centering
-    \includegraphics*[width=.975\textwidth]{jacow_groupphoto_tm2025}
+    \includegraphics*[width=\textwidth]{jacow_groupphoto_tm2025}
 
     \caption{Example of a full-width figure showing the JACoW Team at their annual
     	     meeting in 2025 at CERN in Geneva, Switzerland.}
@@ -380,6 +381,7 @@ The spot size is given by
 where $L$ represents the distance to the …
 \end{TCbox}
 
+\raggedcolsend
 \subsection{Units}
 	
 Symbols for units should be printed in Roman (upright) type. 
@@ -407,7 +409,7 @@ Please be aware that the standard {\LaTeX} »$\mu$« (★\mu★) is not the
 correct »μ« character for units as it is an italicized μ and not the required upright one. 
 The easiest way of achieving the correct output is the use of ‘★\qty{<value>}{<unit>}★’.
 The use of ★$\upmu$★ or ★\textmu★ is discouraged as the first needs ‘★\usepackage{upgreek}★’
-and math-mode, the second one is in text mode, but requires special attention 
+and math-mode, the second one is in text mode, but requires special attention width)
 because of the macro and the following unit, e.\,g. »\texttt{m}«, as shown in the example:
 \begin{TCbox}
 \qty{7}{\um} or \qty{7}{\micro\meter} \\
@@ -423,7 +425,7 @@ distance ~5 m,  $\sim$7\,\textmu{}m, \qty{~17}{\uA}
 \end{TCbox}
 
 Even the per cent sign (\verb|%|) has to be written using a thinspace. 
-There is no recommendation for using the symbol `\%' or the name “per cent” (★\percent★) within `siunitx'~\cite{BIPM}.
+There is no recommendation for using the symbol `★\%★' or the name “per cent” (★\percent★) within `siunitx'~\cite{BIPM}.
 \begin{TCbox}
 \qty{15}{\percent} or 15\,\%
 \end{TCbox}
@@ -519,12 +521,11 @@ Acronyms should be defined the first time they appear,
 both in the abstract and in the rest of the paper. 
 
 \subsection{References}
-
+ 
 A few guidelines related to the writing of references are summarized here.
 The numbering of references is used by citing one reference for each number. 
 Each reference in a  reference list should be a separate number entry. 
 It is not allowed to use one reference number to group together different references (no compound references).
-
 All bibliographical and web references should be listed in a section called \textbf{REFERENCES}. 
 This could be done using the old »★thebibliography★« environment where all reference entries are
 manually formatted:
@@ -553,7 +554,7 @@ and provides comprehensive support for Unicode characters.
 The name of the basic bibliography file should have the same name as the {\LaTeX} file 
 but it is possible to load more than one »★.bib★« file.
 
-When citing a reference in the text, place the corresponding citation key »\texttt{bibId}« in a
+When citing a reference in the text, place the corresponding citation key   »\texttt{bibId}« in a
 »★~\cite{}★« command which should be placed close to point where the information is referenced.
 Please use an unbreakable space (»★~★«) to prevent the number ending up on the next column or page. 
 Reference numbers belong inside the sentence (not after the closing period). 
@@ -647,6 +648,7 @@ Authors are requested to go over the following checklist for electronic publicat
 	\item  Switch on the \texttt{boxit} option and check that no material sticks out into the margin.
 \end{Itemize}
 
+
 \flushcolsend
 \section{CONCLUSION}
 
@@ -683,12 +685,12 @@ this should be the last section of the paper.
 
 	\bibitem{IUPAC-Green}
 		Green Book, Quantities, Units and Symbols in Physical Chemistry: 4th Edition, Abridged Version,
-		Royal Society of Chemistry. 120 pages, Nov. 2023. Printed version or digital access:
+		Royal Society of Chemistry. 120 pages, Nov. 2023. Printed book version or digital access behind paywall:
 		\doi{10.1039/9781839163180}
 
 	\bibitem{IUPAC-Green-Abr}
 		Green Book, Quantities, Units and Symbols in Physical Chemistry: 4th Edition, Abridged Version,
-		Royal Society of Chemistry, 120 pages, 2023.
+		Royal Society of Chemistry, 120 pages (downloadable), 2023.
 		\url{https://iupac.org/wp-content/uploads/2025/03/IUPAC-GB4Abridged.pdf}
 
 	\bibitem{BIPM}
