@@ -727,21 +727,13 @@
 \DeclareFieldFormat{booktitle}{\bibstring{in}\addspace\mkbibemph{#1\isdot}}
 \DeclareFieldFormat{eid}{paper\addspace#1}
 \definecolor{doi}{cmyk}{0.73, 0.37, 0, 0.22}
+
 \DeclareFieldFormat{doi}{%
-  \put_doi:n {\pdfstartlink user{
-      /Subtype /Link
-      % w/o this you get an ugly box around the URL.
-      /Border [ 0 0 0 ]   % radius, radius, line thickness
-      /A <<
-      /Type /Action
-      /S /URI
-      /URI (https://doi.org/#1)
-      >>
-    }%
-    \textcolor{doi}{\nolinkurl{doi:#1}}%
-    \pdfendlink{}%
-  }
+  \put_doi:n {%
+    \href{https://doi.org/#1}{\textcolor{doi}{\nolinkurl{doi:#1}}}%
+  }%
 }
+
 \DeclareFieldFormat{url}{\url{#1}}
 
 \newbibmacro*{name:giveni-family}[4]{% #1:family #2:given #3:prefix #4:suffix
