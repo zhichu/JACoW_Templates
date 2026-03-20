@@ -41,6 +41,18 @@
   \str_set:NN
 \else
 \fi
+\color_set:nnn
+      { doi }
+      {
+        HTML /
+        RGB /
+        cmyk
+      }
+      {
+        357EC7 /
+        53 , 126 , 199 /
+        0.73 , 0.37 , 0 , 0.22
+      }
 
 \DefineBibliographyExtras{american}{
   \stdpunctuation
@@ -534,11 +546,11 @@
     \usebibmacro{finentry}
   } %»
 
-
-\DeclareBibliographyDriver{manual} %«
-  {
-    \usebibmacro{bibindex}
-    \usebibmacro{begentry} %«
+\DeclareBibliographyDriver
+    {manual} %«
+    {
+      \usebibmacro{bibindex}
+      \usebibmacro{begentry} %«
       \usebibmacro{title}
       \newunit\newblock
       \printlist{organization}
@@ -550,9 +562,8 @@
       \printfield{pages}
       \setunit{\addperiod\addspace}\newblock
       \printfirst{doi,url} %»
-    \usebibmacro{finentry}
-  } %»
-
+      \usebibmacro{finentry}
+    } %»
 
 \DeclareBibliographyDriver{patent} %«
   {
@@ -726,14 +737,13 @@
 \DeclareFieldFormat{maintitle}{\bibstring{in}\addspace\mkbibemph{#1\isdot}}
 \DeclareFieldFormat{booktitle}{\bibstring{in}\addspace\mkbibemph{#1\isdot}}
 \DeclareFieldFormat{eid}{paper\addspace#1}
-\definecolor{doi}{cmyk}{0.73, 0.37, 0, 0.22}
-
 \DeclareFieldFormat{doi}{%
-  \put_doi:n {%
-    \href{https://doi.org/#1}{\textcolor{doi}{\nolinkurl{doi:#1}}}%
-  }%
+  \color_group_begin:
+  \put_doi:n {
+    \href{https\c_colon_str//doi.org/#1}{\color_select:n { doi } {\nolinkurl{doi:#1}} }
+  }
+  \color_group_end:
 }
-
 \DeclareFieldFormat{url}{\url{#1}}
 
 \newbibmacro*{name:giveni-family}[4]{% #1:family #2:given #3:prefix #4:suffix
@@ -917,3 +927,5 @@
   }
 
 \endinput
+
+jacow.bbx: JACoW’s biblatex bibliography style
