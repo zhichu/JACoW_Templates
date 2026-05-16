@@ -1,4 +1,4 @@
-%% v3.00
+%% v3.01
 %% This file has been developed as a common template for papers
 %% destined for electronic production for Accelerator Conferences
 %%
@@ -18,7 +18,7 @@
 %%
 %% This work has the LPPL maintenance status "maintained".
 %%
-%% Current Maintainers of this work ares Volker RW Schaa and Zdichu Cheng.
+%% Current Maintainers of this work are Volker RW Schaa and Zhichu Cheng.
 %%
 %% This work consists of the following files
 %%    jacow.cls               JACoW class file
@@ -323,9 +323,13 @@
 % - Zhichu's latest jacow.bbx and jacow.cbx introduced
 %                                                     Volker RW Schaa, 07 Feb 2026
 %
-\def\fileversion{3.00}
-\def\filedate{2026/02/10}
-\def\docdate {2026/02/10}
+%% v3.01
+% - added the accidently lost coloring of DOI links
+%                                                     Volker RW Schaa, 11 Mar 2026
+%
+\def\fileversion{3.01}
+\def\filedate{2026/03/11}
+\def\docdate {2026/03/11}
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{jacow}[\filedate\space v\fileversion]
@@ -497,11 +501,11 @@
 %
 % v2.99c Define linkcolor as in JACoW Word Template
 %
-\definecolor{linkcol}{RGB}{21,37,57}
+\definecolor{doic}{cmyk}{0.73, 0.37, 0, 0.22}
 
 \ifboolexpr{bool{xetex} or bool{luatex}}
  { \let\ori@vdots\vdots
-   \RequirePackage[pdfstartview=Fit, pdfpagemode=UseNone,bookmarks=false,unicode=true, colorlinks, linkcolor={black}, citecolor={black}, urlcolor={linkcol}]{hyperref}
+   \RequirePackage[pdfstartview=Fit, pdfpagemode=UseNone,bookmarks=false,unicode=true, colorlinks, linkcolor={black}, citecolor={black}, urlcolor={doic}]{hyperref}
    \AtBeginDocument{\let\vdots\ori@vdots}
    \RequirePackage{unicode-math}
    \setmainfont[Ligatures=TeX]{TeX Gyre Termes}
@@ -514,7 +518,7 @@
   \RequirePackage{lmodern}
   \RequirePackage{tgtermes}
   \RequirePackage{newtxmath}
-  \RequirePackage[pdfstartview=Fit, pdfpagemode=UseNone,bookmarks=false, colorlinks, linkcolor={black}, citecolor={black}, urlcolor={linkcol}]{hyperref}
+  \RequirePackage[pdfstartview=Fit, pdfpagemode=UseNone,bookmarks=false, colorlinks, linkcolor={black}, citecolor={black}, urlcolor={doic}]{hyperref}
   \input{glyphtounicode}
   \pdfgentounicode=1
  }
@@ -723,7 +727,7 @@
 %
 \ExplSyntaxOn
 \ifboolexpr{bool{jacowbiblatex}}
-  {%
+        {%
 	\RequirePackage[bibstyle=jacow,%
 					citestyle=jacow,%
 					datamodel=jacow,%
@@ -734,23 +738,23 @@
 					eventdate=comp,%
 					mincrossrefs=99,%
 					]{biblatex}
-  }{%
-   %
+ 	  }{%
+ 	 %
 	\RequirePackage{cite}
-	  % Redefine to use smaller fonts
-	  \def\thebibliography#1{\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}%
-	  \ifjacowrefpage\clearpage\fi
-	  \def\doi##1{\placedoi{\href{https\c_colon_str//doi.org/##1}{\nolinkurl{doi:##1}}}}
-	  \section*{REFERENCES\@mkboth
-	  {REFERENCES}{REFERENCES}}\small\list
-	  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
-		\advance\leftmargin\labelsep
-		\usecounter{enumi}}
-		\def\newblock{\hskip .11em plus .33em minus .07em}
-		\sloppy\clubpenalty4000\widowpenalty4000
-		\sfcode`\.=1000\relax}
-	   \let\endthebibliography=\endlist
-   }
+  % Redefine to use smaller fonts
+  \def\thebibliography#1{\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}%
+  \ifjacowrefpage\clearpage\fi
+  \def\doi##1{\placedoi{\href{https\c_colon_str//doi.org/##1}{\nolinkurl{doi:##1}}}}
+  \section*{REFERENCES\@mkboth
+  {REFERENCES}{REFERENCES}}\small\list
+  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \usecounter{enumi}}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}
+   \let\endthebibliography=\endlist
+  }
    \ExplSyntaxOff
 %==========================================================================================================
 %
