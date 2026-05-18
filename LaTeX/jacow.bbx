@@ -5,8 +5,8 @@
 
 \ProvidesExplFile %«
   {jacow.bbx}
-  {2024/03/21}
-  {0.01}
+  {2026/05/04}
+  {3.01.0}
   {JACoW biblatex bibliography style} %»
 
 \RequireBibliographyStyle{numeric-comp}
@@ -30,7 +30,7 @@
 \regex_const:Nn \l_word_with_init_regex { (\A|\c{bibinithyphendelim}|\c{bibinitdelim}) (\cL.) (\cL.)* \.? }
 \regex_const:Nn \l_bibnamedelim:_regex { \c{bibnamedelim[[:alpha:]]+} }
 \tl_new:N \l_jacow_bib_unpublished_type
-\clist_const:Nn \l_jacow_unpublished_types {atevent,atconf,thisevent,thisconf,submitted,submittedto,private}
+\clist_const:Nn \l_jacow_unpublished_types {atevent,atconf,thisevent,thisconf,submitted,accepted,private}
 \tl_new:N \l_jacow_bib_event_title
 \tl_new:N \l_jacow_bib_event_id_tl
 \tl_new:N \l_jacow_bib_current_id_tl
@@ -327,7 +327,7 @@
     atevent     = unpublished,
     atconf      = unpublished,
     submitted   = submitted\addspace for\addspace publication,
-    submittedto = to\addspace be\addspace published,
+    accepted    = to\addspace be\addspace published,
     thisevent   = this\addspace conference,
     thisconf    = this\addspace conference,
     private     = private\addspace communication,
@@ -638,8 +638,8 @@
           } %»
         \map %«
           {
-            \step[typesource=submittedto, typetarget=unpublished,final]
-            \step[fieldset=type,          fieldvalue=submittedto]
+            \step[typesource=accepted, typetarget=unpublished,final]
+            \step[fieldset=type,          fieldvalue=accepted]
           } %»
         \map %«
           {
@@ -688,7 +688,6 @@
 }
 
 
-\DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
 \DeclareFieldFormat[inproceedings]{booktitle} %«
   {
     \bibstring{in}\addspace
@@ -731,7 +730,9 @@
 \DeclareFieldFormat[patent]{number}{No.\nobreakspace#1}
 \DeclareFieldFormat[standard]{number}{Standard\nobreakspace#1}
 \DeclareFieldFormat{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat{titlecase}{\MakeSentenceCase*{#1}}
 \DeclareFieldFormat[book,manual]{title}{\mkbibemph{#1\isdot}}
+\DeclareFieldFormat[book,manual]{titlecase}{\MakeTitleCase{#1}}
 \DeclareFieldFormat[online]{title}{#1}
 \DeclareFieldFormat[software]{title}{\textsc{#1}}
 \DeclareFieldFormat{maintitle}{\bibstring{in}\addspace\mkbibemph{#1\isdot}}
@@ -770,9 +771,9 @@
   }
   {}
   {\printtext[title]{%
-      \printfield[sentencecase]{title}%
+      \printfield[titlecase]{title}%
       \setunit{\subtitlepunct}%
-      \printfield[sentencecase]{subtitle}}%
+      \printfield[titlecase]{subtitle}}%
     \newunit}%
   \printfield{titleaddon}}
 \newbibmacro*{eventdate/date/mon.year} %«
